@@ -1,6 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { LoaderCircle } from 'lucide-react';
 import { ThemeProvider } from './lib/theme';
+import { AuthProvider, useAuth } from './lib/auth';
 import { AppLayout } from './components/AppLayout';
+import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { Transactions } from './pages/Transactions';
 import { Budget } from './pages/Budget';
@@ -19,10 +22,28 @@ const router = createBrowserRouter([
   },
 ]);
 
+function Splash() {
+  return (
+    <div className="flex min-h-full items-center justify-center bg-bg text-accent">
+      <LoaderCircle size={32} strokeWidth={2} className="animate-spin" />
+    </div>
+  );
+}
+
+function AuthGate() {
+  const { session, loading } = useAuth();
+
+  if (loading) return <Splash />;
+  if (!session) return <Login />;
+  return <RouterProvider router={router} />;
+}
+
 export function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <AuthGate />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
