@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import type { Database } from './database.types';
 
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
@@ -17,4 +18,10 @@ if (!isSupabaseConfigured) {
   );
 }
 
-export const supabase = createClient(url ?? 'http://localhost', anonKey ?? 'public-anon-key');
+export const supabase = createClient<Database>(url ?? 'http://localhost', anonKey ?? 'public-anon-key', {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: false,
+  },
+});

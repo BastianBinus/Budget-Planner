@@ -8,7 +8,7 @@ Als installierbare **PWA** (Handy + PC) mit Sync über Supabase.
 - **React + Vite + TypeScript** (PWA via `vite-plugin-pwa`)
 - **Tailwind CSS** mit Light/Dark-Theme (Teal-Akzent)
 - **Recharts** für Diagramme (ab Phase 5)
-- **Supabase** für Auth (Magic-Link), Datenbank und Sync
+- **Supabase** für Auth (E-Mail + Passwort, mehrere Konten), Datenbank und Sync
 
 ## Setup
 
@@ -51,8 +51,8 @@ src/
 ## Roadmap (Phasen)
 
 - [x] **Phase 0** — Scaffold: PWA, Theme-Toggle, Navigation, App-Shell
-- [x] **Phase 1** — Auth (Supabase Magic-Link)
-- [ ] **Phase 2** — Datenbank & Kategorien
+- [x] **Phase 1** — Auth (Supabase E-Mail + Passwort, mehrere Konten)
+- [x] **Phase 2** — Datenbank & Kategorien (Tabellen, RLS, Default-Kategorien, TS-Typen)
 - [ ] **Phase 3** — Transaktionen
 - [ ] **Phase 4** — Budget (Ampel)
 - [ ] **Phase 5** — Dashboard mit Diagrammen

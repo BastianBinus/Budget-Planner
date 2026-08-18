@@ -6,10 +6,13 @@
 
 ## Zweck
 
-Persönliche Budgetplanungsapp für einen einzelnen Nutzer (Bastian). Sie verbindet zwei
-Bedürfnisse: **Ausgaben nachträglich erfassen** (wohin floss das Geld?) und **im Voraus pro
-Kategorie planen** (wie viel darf ich ausgeben?). Genutzt wird sie primär am Handy, gelegentlich
-am PC, mit **Synchronisierung** zwischen den Geräten. Bastian nutzt derzeit kein Tool.
+Budgetplanungsapp für **mehrere Nutzer** (jeder mit eigenem Konto, Daten strikt getrennt). Sie
+verbindet zwei Bedürfnisse: **Ausgaben nachträglich erfassen** (wohin floss das Geld?) und **im
+Voraus pro Kategorie planen** (wie viel darf ich ausgeben?). Genutzt wird sie primär am Handy,
+gelegentlich am PC, mit **Synchronisierung** zwischen den Geräten.
+
+> Geändert 2026-08-18: ursprünglich als Single-User geplant, auf **Multi-User** erweitert. Das
+> Datenmodell trennt bereits alles per `user_id` + RLS, daher keine Schema-Änderung nötig.
 
 Ziel: ein sauberes, installierbares Haushaltsbuch mit Dashboard, Budgets, Sparzielen und
 Auswertungen — ohne App-Store, ohne Overhead.
@@ -22,8 +25,12 @@ Auswertungen — ohne App-Store, ohne Overhead.
 | Styling      | Tailwind CSS mit Light/Dark-Theme                           |
 | Charts       | Recharts (Linien-Diagramm Verlauf, Donut Kategorien)        |
 | Backend/Sync | Supabase (Auth + Postgres + Realtime), Free Tier            |
-| Auth         | Supabase Magic-Link (E-Mail, passwortlos)                   |
+| Auth         | Supabase E-Mail + Passwort (Registrieren/Anmelden), Session im localStorage |
 | Währung      | EUR (fest)                                                  |
+
+> Auth geändert 2026-08-18: statt Magic-Link **E-Mail + Passwort**. Grund: kein E-Mail-Schritt bei
+> jeder Anmeldung; Session bleibt via localStorage erhalten (Supabase-Default). Für sofortige
+> Anmeldung nach Registrierung muss im Supabase-Dashboard „Confirm email" deaktiviert sein.
 
 Begründung: Eine PWA gibt eine installierbare Handy-App ohne App-Store; Supabase liefert Auth,
 Datenbank und Sync im Free Tier out-of-the-box. Umbau zu React Native später möglich, falls nötig.
