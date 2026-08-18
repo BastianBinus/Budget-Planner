@@ -51,7 +51,7 @@ src/
 ## Roadmap (Phasen)
 
 - [x] **Phase 0** — Scaffold: PWA, Theme-Toggle, Navigation, App-Shell
-- [ ] **Phase 1** — Auth (Supabase Magic-Link)
+- [x] **Phase 1** — Auth (Supabase Magic-Link)
 - [ ] **Phase 2** — Datenbank & Kategorien
 - [ ] **Phase 3** — Transaktionen
 - [ ] **Phase 4** — Budget (Ampel)
