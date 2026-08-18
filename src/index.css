@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode — "Calm Finance" */
+    --c-bg: 244 246 249;      /* #f4f6f9 */
+    --c-card: 255 255 255;    /* #ffffff */
+    --c-border: 229 233 240;  /* #e5e9f0 */
+    --c-text: 31 41 55;       /* #1f2937 */
+    --c-muted: 100 116 139;   /* #64748b */
+    --c-accent: 15 118 110;   /* #0f766e */
+  }
+
+  .dark {
+    /* Dark Mode — "Neobank Dark" */
+    --c-bg: 12 15 23;         /* #0c0f17 */
+    --c-card: 22 27 43;       /* #161b2b */
+    --c-border: 35 40 56;     /* #232838 */
+    --c-text: 229 231 235;    /* #e5e7eb */
+    --c-muted: 148 163 184;   /* #94a3b8 */
+    --c-accent: 45 212 191;   /* #2dd4bf */
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-bg text-text antialiased;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+}
