@@ -82,6 +82,24 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          username?: string
+        }
+        Relationships: []
+      }
       recurring_rules: {
         Row: {
           active: boolean
@@ -234,7 +252,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      email_for_username: { Args: { uname: string }; Returns: string }
+      username_available: { Args: { uname: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never

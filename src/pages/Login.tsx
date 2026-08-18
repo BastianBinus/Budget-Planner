@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Eye, EyeOff, KeyRound, LoaderCircle, Lock, Mail } from 'lucide-react';
+import { AtSign, Eye, EyeOff, KeyRound, LoaderCircle, Lock, Mail, User } from 'lucide-react';
 import { useAuth } from '../lib/auth';
 import { isSupabaseConfigured } from '../lib/supabase';
 
@@ -9,6 +9,8 @@ type Status = 'idle' | 'submitting' | 'error' | 'confirm';
 export function Login() {
   const { signIn, signUp } = useAuth();
   const [mode, setMode] = useState<Mode>('signin');
+  const [identifier, setIdentifier] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -26,12 +28,15 @@ export function Login() {
     setErrorMessage('');
     try {
       if (mode === 'signup') {
-        await signUp(email.trim(), password);
+        if (displayName.includes('@')) {
+          throw new Error('Der Anzeigename darf kein @ enthalten.');
+        }
+        await signUp({ displayName, email, password });
         // With email confirmation off the auth listener logs the user straight
         // in; if it is on, no session exists yet, so show a hint.
         setStatus('confirm');
       } else {
-        await signIn(email.trim(), password);
+        await signIn(identifier, password);
         // On success the auth listener swaps this screen for the app.
       }
     } catch (error) {
@@ -102,55 +107,69 @@ export function Login() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <label className="flex flex-col gap-1.5 text-sm">
-              <span className="font-medium text-text">E-Mail-Adresse</span>
-              <div className="flex items-center gap-2 rounded-card border border-border bg-bg px-3 focus-within:border-accent">
-                <Mail size={18} strokeWidth={2} className="shrink-0 text-muted" />
+            {mode === 'signin' ? (
+              <Field label="Anzeigename oder E-Mail" icon={<AtSign size={18} strokeWidth={2} />}>
                 <input
-                  type="email"
+                  type="text"
                   required
-                  autoComplete="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="du@beispiel.de"
+                  autoComplete="username"
+                  value={identifier}
+                  onChange={(event) => setIdentifier(event.target.value)}
+                  placeholder="max oder du@beispiel.de"
                   disabled={disabled}
                   className="w-full bg-transparent py-2.5 text-text outline-none placeholder:text-muted disabled:opacity-60"
                 />
-              </div>
-            </label>
+              </Field>
+            ) : (
+              <>
+                <Field label="Anzeigename" icon={<User size={18} strokeWidth={2} />}>
+                  <input
+                    type="text"
+                    required
+                    autoComplete="username"
+                    value={displayName}
+                    onChange={(event) => setDisplayName(event.target.value)}
+                    placeholder="z. B. max"
+                    disabled={disabled}
+                    className="w-full bg-transparent py-2.5 text-text outline-none placeholder:text-muted disabled:opacity-60"
+                  />
+                </Field>
+                <Field label="E-Mail-Adresse" icon={<Mail size={18} strokeWidth={2} />}>
+                  <input
+                    type="email"
+                    required
+                    autoComplete="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="du@beispiel.de"
+                    disabled={disabled}
+                    className="w-full bg-transparent py-2.5 text-text outline-none placeholder:text-muted disabled:opacity-60"
+                  />
+                </Field>
+              </>
+            )}
 
-            <label className="flex flex-col gap-1.5 text-sm">
-              <span className="font-medium text-text">Passwort</span>
-              <div className="flex items-center gap-2 rounded-card border border-border bg-bg px-3 focus-within:border-accent">
-                <Lock size={18} strokeWidth={2} className="shrink-0 text-muted" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  minLength={6}
-                  autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder={mode === 'signup' ? 'Mindestens 6 Zeichen' : 'Dein Passwort'}
-                  disabled={disabled}
-                  className="w-full bg-transparent py-2.5 text-text outline-none placeholder:text-muted disabled:opacity-60"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  aria-label={showPassword ? 'Passwort verbergen' : 'Passwort anzeigen'}
-                  className="shrink-0 text-muted transition-colors hover:text-text"
-                >
-                  {showPassword ? (
-                    <EyeOff size={18} strokeWidth={2} />
-                  ) : (
-                    <Eye size={18} strokeWidth={2} />
-                  )}
-                </button>
-              </div>
-              {mode === 'signup' && (
-                <span className="text-xs text-muted">Wähle ein Passwort mit mindestens 6 Zeichen.</span>
-              )}
-            </label>
+            <Field label="Passwort" icon={<Lock size={18} strokeWidth={2} />}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                required
+                minLength={6}
+                autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder={mode === 'signup' ? 'Mindestens 6 Zeichen' : 'Dein Passwort'}
+                disabled={disabled}
+                className="w-full bg-transparent py-2.5 text-text outline-none placeholder:text-muted disabled:opacity-60"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? 'Passwort verbergen' : 'Passwort anzeigen'}
+                className="shrink-0 text-muted transition-colors hover:text-text"
+              >
+                {showPassword ? <EyeOff size={18} strokeWidth={2} /> : <Eye size={18} strokeWidth={2} />}
+              </button>
+            </Field>
 
             {status === 'error' && (
               <p className="text-sm text-over" role="alert">
@@ -180,14 +199,36 @@ export function Login() {
   );
 }
 
+interface FieldProps {
+  label: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}
+
+/** Labelled input row with a leading icon, matching the app's form style. */
+function Field({ label, icon, children }: FieldProps) {
+  return (
+    <label className="flex flex-col gap-1.5 text-sm">
+      <span className="font-medium text-text">{label}</span>
+      <div className="flex items-center gap-2 rounded-card border border-border bg-bg px-3 focus-within:border-accent">
+        <span className="shrink-0 text-muted">{icon}</span>
+        {children}
+      </div>
+    </label>
+  );
+}
+
 /** Map common Supabase auth errors to friendly German messages. */
 function translateError(error: unknown): string {
   const message = error instanceof Error ? error.message : '';
   if (/invalid login credentials/i.test(message)) {
-    return 'E-Mail oder Passwort ist falsch.';
+    return 'Anzeigename/E-Mail oder Passwort ist falsch.';
   }
-  if (/user already registered/i.test(message)) {
-    return 'Für diese E-Mail existiert bereits ein Konto. Melde dich stattdessen an.';
+  if (/anzeigename bereits vergeben|already registered/i.test(message)) {
+    return 'Dieser Anzeigename oder diese E-Mail ist bereits vergeben.';
+  }
+  if (/database error saving new user/i.test(message)) {
+    return 'Dieser Anzeigename ist bereits vergeben. Bitte wähle einen anderen.';
   }
   if (/password should be at least/i.test(message)) {
     return 'Das Passwort muss mindestens 6 Zeichen haben.';
