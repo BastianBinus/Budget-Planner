@@ -4,13 +4,7 @@ import { BudgetForm } from '../components/BudgetForm';
 import { useMonthlyBudgets, type BudgetRow } from '../lib/useMonthlyBudgets';
 import { addMonths, currentMonthStart, formatMonth } from '../lib/month';
 import { formatCurrency } from '../lib/format';
-
-function barClass(ratio: number | null): string {
-  if (ratio === null) return 'bg-border';
-  if (ratio < 0.8) return 'bg-ok';
-  if (ratio < 1) return 'bg-warn';
-  return 'bg-over';
-}
+import { ampelBarClass } from '../lib/ampel';
 
 export function Budget() {
   const [month, setMonth] = useState(currentMonthStart);
@@ -109,7 +103,7 @@ export function Budget() {
 
                 <div className="h-1.5 overflow-hidden rounded-full bg-border">
                   <span
-                    className={`block h-full rounded-full ${barClass(row.ratio)}`}
+                    className={`block h-full rounded-full ${ampelBarClass(row.ratio)}`}
                     style={{ width: row.ratio !== null ? `${Math.min(row.ratio, 1) * 100}%` : '0%' }}
                   />
                 </div>

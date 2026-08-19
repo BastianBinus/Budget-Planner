@@ -55,7 +55,7 @@ src/
 - [x] **Phase 2** — Datenbank & Kategorien (Tabellen, RLS, Default-Kategorien, TS-Typen)
 - [x] **Phase 3** — Transaktionen (Erfassen/Bearbeiten/Löschen, Liste, Modal-Formular)
 - [x] **Phase 4** — Budget (Monats-Limit pro Kategorie, Ampel, Monats-Zusammenfassung)
-- [ ] **Phase 5** — Dashboard mit Diagrammen
+- [x] **Phase 5** — Dashboard mit Diagrammen (Bilanz, Verlauf, Donut, Budget, Sparziele)
 - [ ] **Phase 6** — Sparziele
 - [ ] **Phase 7** — Wiederkehrende Buchungen (Fixkosten)
 - [ ] **Phase 8** — Offline/Sync-Härtung
