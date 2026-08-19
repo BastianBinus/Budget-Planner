@@ -20,3 +20,9 @@ dist-ssr/
 
 # Brainstorm companion (local mockups)
 .superpowers/
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/blob-report/

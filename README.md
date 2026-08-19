@@ -29,6 +29,21 @@ eine Konsolen-Warnung aus. Für Auth und Daten die `.env` befüllen (siehe `.env
 | `npm run build`     | Typecheck + Production-Build           |
 | `npm run preview`   | Production-Build lokal ansehen         |
 | `npm run typecheck` | `tsc --noEmit` (Typprüfung)            |
+| `npm run test:e2e`  | Playwright End-to-End-Tests (`e2e/`)   |
+
+## Tests
+
+End-to-End-Tests mit **Playwright** unter `e2e/`. Sie starten den Dev-Server automatisch
+(`playwright.config.ts`), registrieren pro Test ein frisches Konto und decken die Kern-Flows ab:
+Registrieren/Anmelden (inkl. Persistenz & falschem Passwort), Transaktionen (CRUD), Budget-Limit,
+Sparziele + Einzahlung und die Dashboard-Aggregation.
+
+```bash
+npm run test:e2e
+```
+
+Voraussetzung einmalig: `npx playwright install chromium`. Die Tests laufen gegen das echte
+Supabase-Projekt (jeweils neue Testkonten), daher muss die `.env` gesetzt sein.
 
 ## Projektstruktur
 
