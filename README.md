@@ -54,7 +54,7 @@ src/
 - [x] **Phase 1** — Auth (Supabase E-Mail + Passwort, mehrere Konten)
 - [x] **Phase 2** — Datenbank & Kategorien (Tabellen, RLS, Default-Kategorien, TS-Typen)
 - [x] **Phase 3** — Transaktionen (Erfassen/Bearbeiten/Löschen, Liste, Modal-Formular)
-- [ ] **Phase 4** — Budget (Ampel)
+- [x] **Phase 4** — Budget (Monats-Limit pro Kategorie, Ampel, Monats-Zusammenfassung)
 - [ ] **Phase 5** — Dashboard mit Diagrammen
 - [ ] **Phase 6** — Sparziele
 - [ ] **Phase 7** — Wiederkehrende Buchungen (Fixkosten)
