@@ -53,7 +53,7 @@ src/
 - [x] **Phase 0** — Scaffold: PWA, Theme-Toggle, Navigation, App-Shell
 - [x] **Phase 1** — Auth (Supabase E-Mail + Passwort, mehrere Konten)
 - [x] **Phase 2** — Datenbank & Kategorien (Tabellen, RLS, Default-Kategorien, TS-Typen)
-- [ ] **Phase 3** — Transaktionen
+- [x] **Phase 3** — Transaktionen (Erfassen/Bearbeiten/Löschen, Liste, Modal-Formular)
 - [ ] **Phase 4** — Budget (Ampel)
 - [ ] **Phase 5** — Dashboard mit Diagrammen
 - [ ] **Phase 6** — Sparziele
