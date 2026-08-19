@@ -56,7 +56,7 @@ src/
 - [x] **Phase 3** — Transaktionen (Erfassen/Bearbeiten/Löschen, Liste, Modal-Formular)
 - [x] **Phase 4** — Budget (Monats-Limit pro Kategorie, Ampel, Monats-Zusammenfassung)
 - [x] **Phase 5** — Dashboard mit Diagrammen (Bilanz, Verlauf, Donut, Budget, Sparziele)
-- [ ] **Phase 6** — Sparziele
+- [x] **Phase 6** — Sparziele (Ziele anlegen/bearbeiten/löschen, Einzahlungen, Fortschritt)
 - [ ] **Phase 7** — Wiederkehrende Buchungen (Fixkosten)
 - [ ] **Phase 8** — Offline/Sync-Härtung
 
